@@ -31,9 +31,9 @@ def requisicão_rest(cep_informado):
         time.sleep(1.5)
         entrada_de_dados()
     else:
-        retorno_da_requisicão_rest(dados_do_cep)
+        retorno_da_requisicao_rest(dados_do_cep)
 
-def retorno_da_requisicão_rest(dados_do_cep):
+def retorno_da_requisica    o_rest(dados_do_cep):
         print('==> CEP Encontrado! <==')
         print(f"CEP: {dados_do_cep['cep']}")
         print(f"Estado: {dados_do_cep['uf']}")
