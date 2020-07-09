@@ -33,7 +33,7 @@ def requisicão_rest(cep_informado):
     else:
         retorno_da_requisicao_rest(dados_do_cep)
 
-def retorno_da_requisica    o_rest(dados_do_cep):
+def retorno_da_requisicao_rest(dados_do_cep):
         print('==> CEP Encontrado! <==')
         print(f"CEP: {dados_do_cep['cep']}")
         print(f"Estado: {dados_do_cep['uf']}")
