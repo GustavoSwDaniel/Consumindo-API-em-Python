@@ -1,38 +1,49 @@
 import requests
+import os
+import time
 
-def main():
+def layout():
     print("#####################")
     print(" ### Consulta CEP ###")
     print("#####################")
     print()
 
-    n_ten = 0
+
+def entrada_de_dados():
+    os.system('clear')
+
+    layout()
+    cep_input = input('Digite um CEP para a consulta: ')
+    if len(cep_input) !=8:
+        print('Cep invalido! Tente Novamente!')
+        time.sleep(1.5)
+        entrada_de_dados()
+    requisicão_rest(cep_input)
     
-    cep_input = ''
-    while len(cep_input) !=8 and len(cep_input) < 8:
-        if n_ten > 0:
-            cep_input = input('Erro!! Digite um CEP valido : ')
-        else:
-            cep_input = input('Digite um CEP para a consulta: ')
-        n_ten += 1
-    request = requests.get(f'http://viacep.com.br/ws/{cep_input}/json')
 
-    address_data = request.json()
+def requisicão_rest(cep_informado):
+    request = requests.get(f'http://viacep.com.br/ws/{cep_informado}/json')
 
-    if 'erro' in address_data:
-        print(f'CEP invalido')
+    dados_do_cep = request.json()
+
+    if 'erro' in dados_do_cep:
+        print(f'CEP invalido! Tente novamente!')
+        time.sleep(1.5)
+        entrada_de_dados()
     else:
+        retorno_da_requisicão_rest(dados_do_cep)
+
+def retorno_da_requisicão_rest(dados_do_cep):
         print('==> CEP Encontrado! <==')
-        print(f"CEP: {address_data['cep']}")
-        print(f"Estado: {address_data['uf']}")
-    
-    ops = int(input('Deseja uma nova consulta?\n 1-Sim. 2- Sair\n'))
-    if ops == 1:
-        main()
-    else:
-        exit()
+        print(f"CEP: {dados_do_cep['cep']}")
+        print(f"Estado: {dados_do_cep['uf']}")
+        print(f"Cidade: {dados_do_cep['localidade']}")
+        ops = int(input('Deseja uma nova consulta?\n 1-Sim. 2- Sair\n'))
+        if ops == 1:
+            entrada_de_dados()
+        else:
+            exit()
 
-    
 
 if __name__ == "__main__":
-    main()
+    entrada_de_dados()
